@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
 
@@ -7,13 +9,26 @@ export class MainView extends React.Component {
     constructor() {
         super();
         this.state = {
-            movies: [
-                { _id: 1, Title: 'Inception', Description: 'Dom Cobb (Leonardo DiCaprio) is a thief with the rare ability to enter people\'s dreams and steal their secrets from their subconscious. His skill has made him a hot commodity in the world of corporate espionage but has also cost him everything he loves. Cobb gets a chance at redemption when he is offered a seemingly impossible task: Plant an idea in someones mind. If he succeeds, it will be the perfect crime, but a dangerous enemy anticipates Cobb\'s every move.', ImagePath: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRdY_wj6JMbD4UbFuoqbFhWQhD5jXm8gYg0TFjDh1k7ZfpZQYYG', Director: 'Christopher Nolan' },
-                { _id: 2, Title: 'The Shawshank Redemption', Description: 'Andy Dufresne (Tim Robbins) is sentenced to two consecutive life terms in prison for the murders of his wife and her lover and is sentenced to a tough prison. However, only Andy knows he didn\'t commit the crimes. While there, he forms a friendship with Red (Morgan Freeman), experiences brutality of prison life, adapts, helps the warden, etc., all in 19 years.', ImagePath: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkmMH-bEDUS2TmK8amBqgIMgrfzN1_mImChPuMrunA1XjNTSKm', Director: 'Frank Darabont' },
-                { _id: 3, Title: 'Gladiator', Description: 'Set in Roman times, the story of a once-powerful general forced to become a common gladiator. The emperor\'s son is enraged when he is passed over as heir in favour of his father\'s favourite general. He kills his father and arranges the murder of the general\'s family, and the general is sold into slavery to be trained as a gladiator, but his subsequent popularity in the arena threatens the throne.', ImagePath: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRuhegCaGHfcQc-Owpib9vGSO0hUlSUMTojO2s4ih8oXqHBw2ks', Director: 'Ridley Scott' }
-            ],
+            movies: [],
             selectedMovie: null
-        };
+        }
+    }
+
+    componentDidMount() {
+        let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjFkMmRhZjQ3ZWNkZTU1NmFhMmIyYWEiLCJVc2VybmFtZSI6ImpvbmRvZTEiLCJQYXNzd29yZCI6IiQyYiQxMCQ5ZkVOc1lzTmg4b0FFcVZSN2xXMDBldm9vLnplUjVEUjk1aDF5MUpuVkhpbHdHamJSNzZ4UyIsIkVtYWlsIjoibmV3am9uZG9lQGVtYWlsLmNvbSIsIkJpcnRoZGF5IjoiMjAxMi0xMS0xMVQwMDowMDowMC4wMDBaIiwiRmF2b3JpdGVNb3ZpZXMiOltdLCJfX3YiOjAsImlhdCI6MTY0NjA3OTQxMywiZXhwIjoxNjQ2Njg0MjEzLCJzdWIiOiJqb25kb2UxIn0.Eoig4YUc4VpSh-N7HDabzVgHnMccvmgtZ2yIsIRC4yc";
+        axios.get('https://mclaughlinflixdb.herokuapp.com/movies', {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
+            .then(response => {
+                this.setState({
+                    movies: response.data
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 
     setSelectedMovie(newSelectedMovie) {
@@ -25,7 +40,7 @@ export class MainView extends React.Component {
     render() {
         const { movies, selectedMovie } = this.state;
 
-        if (movies.length === 0) return <div className="main-view">The list is empty!</div>;
+        if (movies.length === 0) return <div className="main-view" />;
 
         return (
             <div className="main-view">
