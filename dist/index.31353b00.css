@@ -1,4 +1,7 @@
-.my-flix {
-  color: steelblue;
+* {
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+  background-color: #333333;
+  color: #ffffff;
 }
 /*# sourceMappingURL=index.31353b00.css.map */
