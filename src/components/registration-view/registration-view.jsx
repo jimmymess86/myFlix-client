@@ -17,25 +17,25 @@ export function RegistrationView(props) {
     };
 
     return (
-        <Form>
+        <Form onSubmit={handleSubmit} method="POST">
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" name="Email" placeholder="Enter email" />
+                <Form.Control type="email" name="email" placeholder="Enter email" onChange={e => setEmail(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Username</Form.Label>
-                <Form.Control type="text" name="Username" placeholder="Enter email" />
+                <Form.Control type="text" name="username" placeholder="Enter Username" onChange={e => setUsername(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" name="Password" placeholder="Password" />
+                <Form.Control type="password" name="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Birthday</Form.Label>
-                <Form.Control type="date" name="Birthday" placeholder="Enter email" />
+                <Form.Control type="date" name="birthday" placeholder="Enter Birthday" onChange={e => setBirthday(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicCheckbox">

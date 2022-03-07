@@ -5,7 +5,7 @@ import "./login-view.scss";
 
 import { Container, Form, Button, Card } from 'react-bootstrap';
 
-export function LoginView(props) {
+export default function LoginView(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -18,17 +18,17 @@ export function LoginView(props) {
     };
 
     return (
-        <form>
-            <label>
+        <Form onSubmit={handleSubmit} method="POST">
+            <Form.Label>
                 Username:
-                <input type="text" valye={username} onChange={e => setUsername(e.target.value)} />
-            </label>
-            <label>
+                <Form.Control type="text" valye={username} onChange={e => setUsername(e.target.value)} />
+            </Form.Label>
+            <Form.Label>
                 Password:
-                <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-            </label>
-            <button type="submit" onClick={handleSubmit}>Submit</button>
-        </form>
+                <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} />
+            </Form.Label>
+            <Button type="submit" onClick={handleSubmit}>Submit</Button>
+        </Form>
     );
 }
 

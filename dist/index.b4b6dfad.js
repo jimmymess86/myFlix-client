@@ -22798,6 +22798,7 @@ var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _registrationView = require("../registration-view/registration-view");
 var _loginView = require("../login-view/login-view");
+var _loginViewDefault = parcelHelpers.interopDefault(_loginView);
 var _movieCard = require("../movie-card/movie-card");
 var _movieView = require("../movie-view/movie-view");
 class MainView extends _reactDefault.default.Component {
@@ -22855,7 +22856,7 @@ class MainView extends _reactDefault.default.Component {
             columnNumber: 32
         }, this));
         /* if there is no user, the LoginView is rednered. If there is a user logged in, the user details are *passed as a prop to the LoginView
-        */ if (!user1) return(/*#__PURE__*/ _jsxDevRuntime.jsxDEV(_loginView.LoginView, {
+        */ if (!user1) return(/*#__PURE__*/ _jsxDevRuntime.jsxDEV(_loginViewDefault.default, {
             onLoggedIn: (user)=>this.onLoggedIn(user)
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
@@ -24495,6 +24496,8 @@ function RegistrationView(props) {
         /* send a request tothe server for authentication */ /* then call props.onLoggedIn(username) */ props.onRegistration(username);
     };
     return(/*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form, {
+        onSubmit: handleSubmit,
+        method: "POST",
         children: [
             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Group, {
                 className: "mb-3",
@@ -24509,8 +24512,9 @@ function RegistrationView(props) {
                     }, this),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Control, {
                         type: "email",
-                        name: "Email",
-                        placeholder: "Enter email"
+                        name: "email",
+                        placeholder: "Enter email",
+                        onChange: (e)=>setEmail(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/registration-view/registration-view.jsx",
                         lineNumber: 23,
@@ -24535,8 +24539,9 @@ function RegistrationView(props) {
                     }, this),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Control, {
                         type: "text",
-                        name: "Username",
-                        placeholder: "Enter email"
+                        name: "username",
+                        placeholder: "Enter Username",
+                        onChange: (e)=>setUsername(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/registration-view/registration-view.jsx",
                         lineNumber: 28,
@@ -24561,8 +24566,9 @@ function RegistrationView(props) {
                     }, this),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Control, {
                         type: "password",
-                        name: "Password",
-                        placeholder: "Password"
+                        name: "password",
+                        placeholder: "Password",
+                        onChange: (e)=>setPassword(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/registration-view/registration-view.jsx",
                         lineNumber: 33,
@@ -24587,8 +24593,9 @@ function RegistrationView(props) {
                     }, this),
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Control, {
                         type: "date",
-                        name: "Birthday",
-                        placeholder: "Enter email"
+                        name: "birthday",
+                        placeholder: "Enter Birthday",
+                        onChange: (e)=>setBirthday(e.target.value)
                     }, void 0, false, {
                         fileName: "src/components/registration-view/registration-view.jsx",
                         lineNumber: 38,
@@ -27678,8 +27685,6 @@ $parcel$ReactRefreshHelpers$9fee.prelude(module);
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "LoginView", ()=>LoginView
-);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
@@ -27697,12 +27702,14 @@ function LoginView(props) {
         console.log(username, password);
         /* send a request tothe server for authentication */ /* then call props.onLoggedIn(username) */ props.onLoggedIn(username);
     };
-    return(/*#__PURE__*/ _jsxDevRuntime.jsxDEV("form", {
+    return(/*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form, {
+        onSubmit: handleSubmit,
+        method: "POST",
         children: [
-            /*#__PURE__*/ _jsxDevRuntime.jsxDEV("label", {
+            /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Label, {
                 children: [
                     "Username:",
-                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV("input", {
+                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Control, {
                         type: "text",
                         valye: username,
                         onChange: (e)=>setUsername(e.target.value)
@@ -27717,10 +27724,10 @@ function LoginView(props) {
                 lineNumber: 22,
                 columnNumber: 13
             }, this),
-            /*#__PURE__*/ _jsxDevRuntime.jsxDEV("label", {
+            /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Label, {
                 children: [
                     "Password:",
-                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV("input", {
+                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Form.Control, {
                         type: "password",
                         value: password,
                         onChange: (e)=>setPassword(e.target.value)
@@ -27735,7 +27742,7 @@ function LoginView(props) {
                 lineNumber: 26,
                 columnNumber: 13
             }, this),
-            /*#__PURE__*/ _jsxDevRuntime.jsxDEV("button", {
+            /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Button, {
                 type: "submit",
                 onClick: handleSubmit,
                 children: "Submit"
@@ -27751,6 +27758,7 @@ function LoginView(props) {
         columnNumber: 9
     }, this));
 }
+exports.default = LoginView;
 _s(LoginView, "wuQOK7xaXdVz4RMrZQhWbI751Oc=");
 _c = LoginView;
 LoginView.propTypes = {
@@ -27788,12 +27796,27 @@ class MovieCard extends _reactDefault.default.Component {
     render() {
         const { movie , onMovieClick  } = this.props;
         return(/*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
-            className: "movie-card",
-            onClick: ()=>{
-                onMovieClick(movie);
-            },
-            children: movie.Title
-        }, void 0, false, {
+            children: [
+                /*#__PURE__*/ _jsxDevRuntime.jsxDEV("h2", {
+                    className: "movie-card",
+                    onClick: ()=>{
+                        onMovieClick(movie);
+                    },
+                    children: movie.Title
+                }, void 0, false, {
+                    fileName: "src/components/movie-card/movie-card.jsx",
+                    lineNumber: 10,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ _jsxDevRuntime.jsxDEV("img", {
+                    src: "src/" + movie.ImagePath
+                }, void 0, false, {
+                    fileName: "src/components/movie-card/movie-card.jsx",
+                    lineNumber: 11,
+                    columnNumber: 17
+                }, this)
+            ]
+        }, void 0, true, {
             fileName: "src/components/movie-card/movie-card.jsx",
             lineNumber: 9,
             columnNumber: 13
