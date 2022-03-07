@@ -1,15 +1,22 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
+import './movie-card.scss';
+import { Card, Button } from 'react-bootstrap';
 
 export class MovieCard extends React.Component {
     render() {
         const { movie, onMovieClick } = this.props;
 
         return (
-            <div>
-                <h2 className="movie-card" onClick={() => { onMovieClick(movie); }}>{movie.Title}</h2>
-                <img src={"src/" + movie.ImagePath} />
-            </div>
+            <Card>
+                <Card.Img variant="top" src={"img/" + movie.ImagePath} />
+                <Card.Body>
+                    <Card.Title>{movie.Title}</Card.Title>
+                    <Card.Text>{movie.Description}</Card.Text>
+                    <Button variant="primary" onClick={() => onMovieClick(movie)}>Open</Button>
+                </Card.Body>
+            </Card>
 
         );
     }

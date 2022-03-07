@@ -5,6 +5,7 @@ import { RegistrationView } from '../registration-view/registration-view';
 import LoginView from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { Container, Row, Col } from 'react-bootstrap';
 
 export class MainView extends React.Component {
 
@@ -20,7 +21,11 @@ export class MainView extends React.Component {
 
     componentDidMount() {
         let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MjFkMmRhZjQ3ZWNkZTU1NmFhMmIyYWEiLCJVc2VybmFtZSI6ImpvbmRvZTEiLCJQYXNzd29yZCI6IiQyYiQxMCQ5ZkVOc1lzTmg4b0FFcVZSN2xXMDBldm9vLnplUjVEUjk1aDF5MUpuVkhpbHdHamJSNzZ4UyIsIkVtYWlsIjoibmV3am9uZG9lQGVtYWlsLmNvbSIsIkJpcnRoZGF5IjoiMjAxMi0xMS0xMVQwMDowMDowMC4wMDBaIiwiRmF2b3JpdGVNb3ZpZXMiOltdLCJfX3YiOjAsImlhdCI6MTY0NjA3OTQxMywiZXhwIjoxNjQ2Njg0MjEzLCJzdWIiOiJqb25kb2UxIn0.Eoig4YUc4VpSh-N7HDabzVgHnMccvmgtZ2yIsIRC4yc";
-        axios.get('https://mclaughlinflixdb.herokuapp.com/movies')
+        axios.get('https://mclaughlinflixdb.herokuapp.com/movies', {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        })
             .then(response => {
                 this.setState({
                     movies: response.data
@@ -65,6 +70,7 @@ export class MainView extends React.Component {
     }
 
     render() {
+
         const { movies, selectedMovie, user, register } = this.state;
 
         if (!register) return (<RegistrationView onRegistration={(register) => this.onRegistration(register)} />)
@@ -78,16 +84,28 @@ export class MainView extends React.Component {
         if (movies.length === 0) return <div className="main-view" />;
 
         return (
-            <div className="main-view">
-                {/* if the state of 'selectedMovie/ is not null, that selected movie will be returned otherwise, all *movies will be returned
-                */}
-                {selectedMovie
-                    ? <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
-                    : movies.map(movie => (
-                        <MovieCard key={movie._id} movie={movie} onMovieClick={(movie) => { this.setSelectedMovie(movie) }} />
-                    ))
-                }
-            </div>
+            <Container>
+                <div className="main-view">
+                    {selectedMovie
+                        ? (
+                            <Row className="justify-content-md-center">
+                                <Col md={8}>
+                                    <MovieView movie={selectedMovie} onBackClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+                                </Col>
+                            </Row>
+                        )
+                        : (
+                            <Row className="justify-content-md-center">
+                                {movies.map(movie => (
+                                    <Col md={3}>
+                                        <MovieCard key={movie._id} movie={movie} onMovieClick={newSelectedMovie => { this.setSelectedMovie(newSelectedMovie); }} />
+                                    </Col>
+                                ))}
+                            </Row>
+                        )
+                    }
+                </div>
+            </Container>
         );
     }
 }

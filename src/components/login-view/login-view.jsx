@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import "./login-view.scss";
 
-import { Container, Form, Button, Card } from 'react-bootstrap';
+import { Container, Form, Button, Card, CardGroup, Row, Col } from 'react-bootstrap';
 
 export default function LoginView(props) {
     const [username, setUsername] = useState('');
@@ -18,17 +18,29 @@ export default function LoginView(props) {
     };
 
     return (
-        <Form onSubmit={handleSubmit} method="POST">
-            <Form.Label>
-                Username:
-                <Form.Control type="text" valye={username} onChange={e => setUsername(e.target.value)} />
-            </Form.Label>
-            <Form.Label>
-                Password:
-                <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} />
-            </Form.Label>
-            <Button type="submit" onClick={handleSubmit}>Submit</Button>
-        </Form>
+        <Container>
+            <Row>
+                <Col>
+                    <CardGroup>
+                        <Card>
+                            <Card.Body>
+                                <Form onSubmit={handleSubmit} method="POST">
+                                    <Form.Label>
+                                        Username:
+                                        <Form.Control type="text" value={username} onChange={e => setUsername(e.target.value)} />
+                                    </Form.Label>
+                                    <Form.Label>
+                                        Password:
+                                        <Form.Control type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                                    </Form.Label>
+                                    <Button type="primary" onClick={handleSubmit}>Submit</Button>
+                                </Form>
+                            </Card.Body>
+                        </Card>
+                    </CardGroup>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 
