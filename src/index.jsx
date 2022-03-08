@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
 import MainView from './components/main-view/main-view';
-import Container from 'react-bootstrap/Container';
+import { Container } from 'react-bootstrap';
 
 // Import statement to indicate that you need to bundle `./index.scss`
 import './index.scss';
