@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import './movie-view.scss';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 export class MovieView extends React.Component {
@@ -24,7 +25,7 @@ export class MovieView extends React.Component {
         const { movie, onBackClick } = this.props;
 
         return (
-            <Container fluid className="moviesContainer">
+            <Container>
                 <Row>
                     <Col>
                         <div className="movie-view">
@@ -41,11 +42,15 @@ export class MovieView extends React.Component {
                             </div>
                             <div className="movie-director">
                                 <span className="label">Director: </span>
-                                <span className="value">{movie.Director.Name}</span>
+                                <Link to={`/directors/${movie.Director.Name}`}>
+                                    <Button variant="link">{movie.Director.Name}</Button>
+                                </Link>
                             </div>
                             <div className="movie-genre">
                                 <span className="label">Genre: </span>
-                                <span className="value">{movie.Genre.Name}</span>
+                                <Link to={`/genres/${movie.Genre.Name}`}>
+                                    <Button variant="link">{movie.Genre.Name}</Button>
+                                </Link>
                             </div>
                             <Button variant="primary" onClick={() => onBackClick(null)}>Back</Button>
                         </div>
