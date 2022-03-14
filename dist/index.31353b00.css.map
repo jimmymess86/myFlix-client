@@ -1,0 +1,1 @@
+{"mappings":"AAAA;EACI;EACA;EACA;EACA","sources":["Applications/myFlix-client/src/index.scss"],"sourcesContent":["* {\n    box-sizing: border-box;\n    font-family: 'Montserrat', sans-serif;\n    background-color: #333333;\n    color: #ffffff;\n  }"],"names":[],"version":3,"file":"index.31353b00.css.map","sourceRoot":"/__parcel_source_root/"}
