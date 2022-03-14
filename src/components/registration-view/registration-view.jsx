@@ -104,7 +104,7 @@ export function RegistrationView(props) {
                                         <Form.Control type="date" value={birthday} onChange={e => setBirthday(e.target.value)} placeholder="Enter birthday" />
                                     </Form.Group>
 
-                                    <Button variant="outline-light" type="submit" onClick={handleSubmit}>Submit</Button>
+                                    <Button variant="primary" type="submit" onClick={handleSubmit}>Submit</Button>
                                 </Form>
                             </Card.Body>
                         </Card>

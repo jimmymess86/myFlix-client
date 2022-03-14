@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import './navbar-view.scss';
@@ -8,7 +8,7 @@ export function NavbarView({ user }) {
 
     const onLoggedOut = () => {
         localStorage.clear();
-        window.open("/", "_self");
+        window.open('/', '_self');
     };
 
     const isAuth = () => {
@@ -27,12 +27,12 @@ export function NavbarView({ user }) {
             <Navbar.Brand className="navbar-logo" href="/">myFlix</Navbar.Brand>
             <Navbar.Toggle aria-controls="rewsponsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-                <Nav className="m1-auto">
+                <Nav className="me-auto">
                     {isAuth() && (
                         <Nav.Link href={`/users/${user}`}>{user}</Nav.Link>
                     )}
                     {isAuth() && (
-                        <Button variant="link" onClick={() => { this.onLoggedOut() }}>Logout</Button>
+                        <Button variant="link" onClick={() => { onLoggedOut() }}>Logout</Button>
                     )}
                     {!isAuth() && (
                         <Nav.Link href="/">Login</Nav.Link>
