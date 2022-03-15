@@ -32,7 +32,7 @@ export class DirectorView extends React.Component {
                             <span className="value">{director.Death}</span>
                         </Card.Text>
 
-                        <Button variant="outline-light" onClick={() => { onBackClick(); }}>Back</Button>
+                        <Button variant="primary" onClick={() => { onBackClick(); }}>Back</Button>
                     </Card.Body>
                 </Card>
                 <Row>
@@ -50,3 +50,12 @@ export class DirectorView extends React.Component {
         );
     }
 }
+
+DirectorView.propTypes = {
+    director: PropTypes.shape({
+        Name: PropTypes.string.isRequired,
+        Bio: PropTypes.string.isRequired,
+        BirthDate: PropTypes.string
+
+    }).isRequired
+};
