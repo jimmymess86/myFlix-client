@@ -2,18 +2,20 @@ import React from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import './profile-view.scss';
+import { MovieCard } from '../movie-card/movie-card';
 import { Link } from 'react-router-dom';
 import { Container, Card, Button, Row, Col, Form } from 'react-bootstrap';
 
 export class ProfileView extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-            Username: null,
-            Password: null,
-            Email: null,
-            Birthday: null,
+            userDetails: [],
+            Username: '',
+            Password: '',
+            Email: '',
+            Birthday: '',
             FavoriteMovies: [],
         };
     }
@@ -34,19 +36,18 @@ export class ProfileView extends React.Component {
 
     getUser = (token) => {
         const Username = localStorage.getItem('user');
-        axios
-            .get(`https://mclaughlinflixdb.herokuapp.com/users/${Username}`, {
-                headers: { Authorization: `Bearer ${token}` },
-            })
-            .then((response) => {
-                this.setState({
-                    Username: response.data.Username,
-                    Password: response.data.Password,
-                    Email: response.data.Email,
-                    Birthday: response.data.Birthday,
-                    FavoriteMovies: response.data.FavoriteMovies,
-                });
-            })
+        axios.get(`https://mclaughlinflixdb.herokuapp.com/users/${Username}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        }).then((response) => {
+            console.log(response);
+            this.setState({
+                Username: response.data.Username,
+                Password: response.data.Password,
+                Email: response.data.Email,
+                Birthday: response.data.Birthday,
+                FavoriteMovies: response.data.FavoriteMovies,
+            });
+        })
             .catch(function (error) {
                 console.log(error);
             });
@@ -87,7 +88,7 @@ export class ProfileView extends React.Component {
             });
     };
 
-    // Delete a movie from FavoriteMovies list
+    // Delete a movie from FavoriteMovies
     onRemoveFavorite = (e, movie) => {
         e.preventDefault();
         const Username = localStorage.getItem('user');
@@ -157,7 +158,15 @@ export class ProfileView extends React.Component {
 
     render() {
         const { movies, onBackClick } = this.props;
-        const { FavoriteMovies, Username, Email, Birthday } = this.state;
+        const { Username, Email, Birthday } = this.state;
+
+        let tempArray = this.state.FavoriteMovies;
+        console.log(this.state.FavoriteMovies)
+        let FavoriteMoviesArray = [];
+
+        FavoriteMoviesArray = movies.filter(movie => tempArray.includes(movie._id));
+
+        console.log(FavoriteMoviesArray)
 
         if (!Username) {
             return null;
@@ -236,49 +245,18 @@ export class ProfileView extends React.Component {
                         </Card>
                     </Col>
                 </Row>
-                <Row style={{ marginTop: "20px" }} align="Center">
-                    <Col xs={12}>
-                        <h4>{Username}{"'s"} Favorite Movies</h4>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Card.Body>
-                            {FavoriteMovies.length === 0 && (
-                                <div className="text-center">You have no favorites!</div>
-                            )}
-                            <Row className="favorite-container">
-                                {FavoriteMovies.length > 0 &&
-                                    movies.map((movie) => {
-                                        if (
-                                            movie._id ===
-                                            FavoriteMovies.find((fav) => fav === movie._id)
-                                        ) {
-                                            return (
-                                                <Card className="favorite-movie card-content" key={movie._id} >
-                                                    <Card.Img
-                                                        className="fav-poster"
-                                                        variant="top"
-                                                        src={movie.ImagePath}
-                                                    />
-                                                    <Card.Body style={{ backgroundColor: "black" }}>
-                                                        <Card.Title className="movie_title">
-                                                            {movie.Title}
-                                                        </Card.Title>
-                                                        <Button size="sm" variant="danger" value={movie._id} onClick={(e) => this.onRemoveFavorite(e, movie)}>Remove from Favorites</Button>
-                                                    </Card.Body>
-                                                </Card>
-                                            );
-                                        }
-                                    })}
-                            </Row>
-                        </Card.Body>
-                    </Col>
-                </Row>
+                <Card border="light" align="center" style={{ color: "black" }}>
+                    <Card.Title>{Username}'s Favorites:</Card.Title>
+                    <Row>
+                        {FavoriteMoviesArray.map(movie => (
+                            <Col md={4} key={movie._id} className="my-2">
+                                <MovieCard movie={movie} />
+                            </Col>))}
+                    </Row>
+                </Card>
                 <div className="backButton">
                     <Button variant="primary" onClick={() => { onBackClick(null); }}>Back</Button>
                 </div>
-                <br />
             </Container>
         );
     }

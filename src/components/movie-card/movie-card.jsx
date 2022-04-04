@@ -8,10 +8,10 @@ import { Link } from "react-router-dom";
 export class MovieCard extends React.Component {
     render() {
         const { movie } = this.props;
-
+        const baseURL = 'http://localhost:1234/img/';
         return (
             <Card>
-                <Card.Img variant="top" src={"img/" + movie.ImagePath} />
+                <Card.Img variant="top" src={baseURL + movie.ImagePath} />
                 <Card.Body>
                     <Card.Title>{movie.Title}</Card.Title>
                     <Card.Text>{movie.Description}</Card.Text>
